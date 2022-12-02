@@ -21,13 +21,24 @@ export function ControlTower(){
   return(
     <div>
     <div className='flex'>
-      <div className='text-center h-[90vh] overflow-x-hidden overflow-y-scroll scroll'>
+      <div className='text-center h-[90vh] overflow-x-hidden'>
        <h2 className='mt-1 font-scaniaCondensed font-extrabold text-xl'>Real Time Informations</h2> 
        <Info 
-        
+        lastVelocity={12}
+        nextVelocity={12}
+        distToNextPoint={12}
+        pathDeviation={12}
+        autonomousOn={true}
+        scannerSafety={true}
+        scannerWarn={true}
        />
       </div>
-      <Map/>
+      <Map
+      antLat= {'12'}
+      antLong= {'12'}
+      antQuality= {12}
+      lidarPoseQuality= {12} 
+      />
     </div>
   </div>
   )

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ExternaAGVAPI.Migrations
 {
-    public partial class Addingtables : Migration
+    public partial class Changesinvaues : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,7 +16,7 @@ namespace ExternaAGVAPI.Migrations
                 name: "tb_externalagv",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
+                    index = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     autonomousOn = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     modeOutdoorOn = table.Column<bool>(type: "tinyint(1)", nullable: false),
@@ -33,8 +33,10 @@ namespace ExternaAGVAPI.Migrations
                     stopPointDrop = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     endRoute = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     tractionVelocity = table.Column<float>(type: "float", nullable: false),
-                    antLat = table.Column<float>(type: "float", nullable: false),
-                    antLong = table.Column<float>(type: "float", nullable: false),
+                    antLat = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    antLong = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     antSvs = table.Column<int>(type: "int", nullable: false),
                     antQuality = table.Column<int>(type: "int", nullable: false),
                     lastVelocity = table.Column<float>(type: "float", nullable: false),
@@ -61,7 +63,7 @@ namespace ExternaAGVAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_tb_externalagv", x => x.id);
+                    table.PrimaryKey("PK_tb_externalagv", x => x.index);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 

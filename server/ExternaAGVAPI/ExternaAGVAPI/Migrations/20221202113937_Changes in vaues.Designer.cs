@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExternaAGVAPI.Migrations
 {
     [DbContext(typeof(ExternalAgvContext))]
-    [Migration("20221201135217_Addingtables")]
-    partial class Addingtables
+    [Migration("20221202113937_Changes in vaues")]
+    partial class Changesinvaues
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -22,15 +22,17 @@ namespace ExternaAGVAPI.Migrations
 
             modelBuilder.Entity("ExternaAGVAPI.Models.ExternalAgv", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("index")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<float>("antLat")
-                        .HasColumnType("float");
+                    b.Property<string>("antLat")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
-                    b.Property<float>("antLong")
-                        .HasColumnType("float");
+                    b.Property<string>("antLong")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<int>("antQuality")
                         .HasColumnType("int");
@@ -146,7 +148,7 @@ namespace ExternaAGVAPI.Migrations
                     b.Property<bool>("ultrasoundSafety")
                         .HasColumnType("tinyint(1)");
 
-                    b.HasKey("id");
+                    b.HasKey("index");
 
                     b.ToTable("tb_externalagv");
                 });

@@ -21,8 +21,8 @@ namespace ExternaAGVAPI.Models
         public bool stopPointDrop { get; set; }
         public bool endRoute { get; set; }
         public float tractionVelocity { get; set; }
-        public float antLat { get; set; }
-        public float antLong { get; set; }
+        public string antLat { get; set; }
+        public string antLong { get; set; }
         public int antSvs { get; set; }
         public int antQuality { get; set; }
         public float lastVelocity { get; set; }

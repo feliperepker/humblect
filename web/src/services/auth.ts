@@ -5,7 +5,11 @@ export function isAuthenticated(){
  return localStorage.getItem(TOKEN_KEY) !== null
 }
 export function getToken(){
-  return localStorage.getItem(TOKEN_KEY);
+
+   localStorage.getItem(TOKEN_KEY);
+   setTimeout( () =>{
+    logout()
+}, 3600000);
 }
 
 export function login(token: string){

@@ -1,7 +1,7 @@
-import { FormEvent, useState } from "react"
+import { FormEvent, useEffect, useState } from "react"
 import { Navigate, useNavigate } from "react-router-dom";
 import api from "../services/api";
-import { login } from "../services/auth";
+import { isAuthenticated, login } from "../services/auth";
 
 
 export function Login(){
@@ -22,6 +22,11 @@ export function Login(){
           alert(err)
         }
   }
+
+  useEffect(() =>{
+    const auth = isAuthenticated()
+    auth ? navigate('/ControlTower') : ''
+  },[])
   return(
     <div className="flex">
       <div className="w-[30%] h-screen bg-gray-200 flex flex-col justify-center items-center ">
