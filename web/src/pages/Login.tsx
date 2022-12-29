@@ -29,7 +29,7 @@ export function Login(){
   },[])
   return(
     <div className="flex">
-      <div className="w-[30%] h-screen bg-gray-200 flex flex-col justify-center items-center ">
+      <div className="w-[30%] h-screen bg-gray-200 flex flex-col justify-center items-center max-sm:w-screen ">
         <img src="/scania_symbol_L_rgb.ico" alt="" className="w-20 mb-4"/>
         <h2 className="font-scaniaHeadline mb-4 text-center text-2xl font-bold">EXTERNAL AGV  <br/> <span className="text-xl font-medium">CONTROL TOWER</span></h2>
         <form onSubmit={getLogin} className="flex flex-col w-[80%]">
@@ -38,7 +38,7 @@ export function Login(){
           <button type="submit" className="bg-[#041E42] text-white h-10 rounded transition-all hover:bg-[#153664]">Login</button>
         </form>
       </div>
-      <img className="w-[70%] h-screen object-cover" src="https://brand.scania.com/content/dam/brand-identity/pages/brand-elements/imagery/driving-the-shift/17286-182.jpg/_jcr_content/renditions/cq5dam.web.1280.1280.jpeg" alt="" />
+      <img className="w-[70%] h-screen object-cover max-sm:hidden" src="https://juntosnocaminho.com.br/wp-content/uploads/2022/10/Super-4-scaled.jpeg" alt="" />
     </div>
   )
 }

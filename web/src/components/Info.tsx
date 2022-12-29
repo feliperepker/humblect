@@ -1,3 +1,8 @@
+import { ProgressBar } from "./ProgressBar"
+import { TablePoints } from "./TablePoints"
+import { TableSafety } from "./TableSafety"
+import { TableVelocity } from "./TableVelocity"
+
 let infos = [
   {key: "Velocity", value: "10 km/h"},
   {key: "Status", value: "Stopped"},
@@ -6,22 +11,27 @@ let infos = [
   {key: "Route", value: "Kd_Eixo"},
   {key: "Scanners", value: "Clear"}
 ]
-interface InfoProps{
+interface UtilityProps{
   lastVelocity: number,
   nextVelocity: number,
-  distToNextPoint: number,
+  tractionVelocity: number,
   autonomousOn: boolean,
-  scannerSafety: boolean,
+  scannerSafety: boolean, 
   scannerWarn: boolean,
+  ultrasoundSafety: boolean,
   pathDeviation: number,
+  nextSequence: number,
+  distToNextPoint: number, 
+  distPointToPoint: number, 
+  lastSequence: number,
 }
 export interface ExternalProps{
     index: number,
-    autonomousOn: boolean,
+    autonomousOn: boolean, 
     modeOutdoorOn: boolean,
     modeIndoorOn: boolean,
-    scannerSafety: boolean,
-    scannerWarn: boolean,
+    scannerSafety: boolean, 
+    scannerWarn: boolean, 
     lidarSafety: boolean,
     lidarWarn: boolean,
     ultrasoundSafety: boolean,
@@ -31,21 +41,21 @@ export interface ExternalProps{
     stopPointPickup: boolean,
     stopPointDrop: boolean,
     endRoute: boolean,
-    tractionVelocity: number,
+    tractionVelocity: number, //velocidade q esta
     antLat: string,
     antLong: string,
     antSvs: number,
     antQuality: number,
-    lastVelocity: number,
-    lastSequence: number,
-    lastOnStraight: boolean,
-    nextVelocity: number,
-    nextSequence: number,
-    nextOnStraight: boolean,
+    lastVelocity: number, //vel q deveria 
+    lastSequence: number, //ultimo ponto //
+    lastOnStraight: boolean, 
+    nextVelocity: number, //prox vel
+    nextSequence: number, //prox ponto  //
+    nextOnStraight: boolean, 
     navAngle: number,
     pathDeviation: number,
-    distToNextPoint: number,
-    distPointToPoint: number,
+    distToNextPoint: number, //
+    distPointToPoint: number, //
     distFromLastPoint: number,
     route1Length: number,
     pickUpPoint: number,
@@ -60,46 +70,33 @@ export interface ExternalProps{
 }
 
 
-export function Info({lastVelocity, nextVelocity, distToNextPoint, autonomousOn, scannerSafety, scannerWarn, pathDeviation}: InfoProps){
+export function Info(props: UtilityProps){
   return(
-      <section className="flex justify-center w-[30vw] ">
-        <table className="h-28 mt-2 w-[80%] mr-[10%] max-w-sm font-scaniaCondensed font-extralight ">
-          <thead className="bg-[#041E42] text-white font-scaniaCondensed font-light border-[#041E42] border-[1px]">
-            <tr>
-              <th className="p-1" colSpan={2}>AGV - Externo</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr className="">
-              <td className="border-gray-200 border-[1px] p-[2px] font-bold text-left pl-2">Current Velocity Point</td>
-              <td className={`border-gray-200 border-[1px] text-center`}>{lastVelocity}</td>
-            </tr>
-            <tr className="">
-              <td className="border-gray-200 border-[1px] p-[2px] font-bold text-left pl-2">Next Velocity</td>
-              <td className={`border-gray-200 border-[1px] text-center`}>{nextVelocity}</td>
-            </tr>
-            <tr className="">
-              <td className="border-gray-200 border-[1px] p-[2px] font-bold text-left pl-2">Distance to Next Point</td>
-              <td className={`border-gray-200 border-[1px] text-center`}>{distToNextPoint}</td>
-            </tr>
-            <tr className="">
-              <td className="border-gray-200 border-[1px] p-[2px] font-bold text-left pl-2">Autonomous On</td>
-              <td className={`border-gray-200 font-bold border-[1px] text-center ${autonomousOn ? 'text-green-600' : 'text-red-500' }`}>{autonomousOn ? " ON" : "OFF"}</td>
-            </tr>
-            <tr className="">
-              <td className="border-gray-200 border-[1px] p-[2px] font-bold text-left pl-2">Scanner Safety</td>
-              <td className={`font-bold border-gray-200 border-[1px] text-center ${scannerSafety ? 'text-red-500' : '' }`}>{scannerSafety ? "Stopped" : "Normal"}</td>
-            </tr>
-            <tr className="">
-              <td className="border-gray-200 border-[1px] p-[2px] font-bold text-left pl-2">Scanner Warn</td>
-              <td className={`font-bold border-gray-200 border-[1px] text-center ${scannerSafety ? 'text-yellow-500' : '' }`}>{scannerWarn ? "Warning" : "Normal"}</td>
-            </tr>
-            <tr className="">
-              <td className="border-gray-200 border-[1px] p-[2px] font-bold text-left pl-2">Path Deviation</td>
-              <td className={`border-gray-200 border-[1px] text-center`}>{pathDeviation}</td>
-            </tr>
-          </tbody>
-        </table>
+      <section className="flex justify-evenly items-center w-[100vw] mb-6  ">
+        <div>
+          <TableVelocity
+            lastVelocity={props.lastVelocity}
+            nextVelocity={props.nextVelocity}
+            tractionVelocity={props.tractionVelocity}
+          />
+        </div>
+
+        <div>
+        <TableSafety
+            autonomousOn={props.autonomousOn}
+            scannerSafety={props.scannerSafety}
+            scannerWarn={props.scannerWarn}
+            ultrasoundSafety={props.ultrasoundSafety}
+            pathDeviation={props.pathDeviation}
+          />
+        </div>
+        <TablePoints
+         nextSequence={props.nextSequence} 
+         distToNextPoint={props.distToNextPoint} 
+         distPointToPoint={props.distPointToPoint}    
+         lastSequence={props.lastSequence}    
+         />
+
       </section>
   )
 }
